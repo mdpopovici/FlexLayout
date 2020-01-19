@@ -248,9 +248,15 @@ class TabSetNode extends Node implements IDraggable, IDropTarget {
 
   /** @hidden @internal */
   _remove(node: TabNode) {
+    let pos = this.getChildren().indexOf(node);
     this._removeChild(node);
     this._model._tidy();
-    this._setSelected(Math.max(0, this.getSelected() - 1));
+    let selected = this.getSelected();
+    if (pos > selected){
+        this._setSelected(Math.max(0, selected));
+    }else{
+        this._setSelected(Math.max(0, selected-1));
+    }
   }
 
   /** @hidden @internal */
