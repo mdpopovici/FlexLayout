@@ -29,7 +29,7 @@ export class Tab extends React.Component<ITabProps, any> {
         // console.log("unmount " + this.props.node.getName());
     }
 
-    getDerivedStateFromProps(newProps: ITabProps, state: any) {
+    static getDerivedStateFromProps(newProps: ITabProps, state: any) {
         if (!state.renderComponent && newProps.selected) {
             // load on demand
             // console.log("load on demand: " + this.props.node.getName());

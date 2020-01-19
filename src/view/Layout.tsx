@@ -119,21 +119,8 @@ export class Layout extends React.Component<ILayoutProps, any> {
     }
   }
 
-  /** @hidden @internal */
-  getDerivedStateFromProps(newProps: ILayoutProps, state: any) {
-    if (this.model !== newProps.model) {
-      if (this.model !== undefined) {
-        this.model._setChangeListener(undefined); // stop listening to old model
-      }
-      this.model = newProps.model;
-      this.model._setChangeListener(this.onModelChange);
-      this.forceUpdate();
-    }
-    return null;
-  }
-
   // /** @hidden @internal */
-  // componentWillReceiveProps(newProps: ILayoutProps) {
+  // getDerivedStateFromProps(newProps: ILayoutProps, state: any) {
   //   if (this.model !== newProps.model) {
   //     if (this.model !== undefined) {
   //       this.model._setChangeListener(undefined); // stop listening to old model
@@ -142,7 +129,20 @@ export class Layout extends React.Component<ILayoutProps, any> {
   //     this.model._setChangeListener(this.onModelChange);
   //     this.forceUpdate();
   //   }
+  //   return null;
   // }
+
+  /** @hidden @internal */
+  UNSAFE_componentWillReceiveProps(newProps: ILayoutProps) {
+    if (this.model !== newProps.model) {
+      if (this.model !== undefined) {
+        this.model._setChangeListener(undefined); // stop listening to old model
+      }
+      this.model = newProps.model;
+      this.model._setChangeListener(this.onModelChange);
+      this.forceUpdate();
+    }
+  }
 
   /** @hidden @internal */
   componentDidMount() {
@@ -153,7 +153,7 @@ export class Layout extends React.Component<ILayoutProps, any> {
   }
 
   /** @hidden @internal */
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: any, prevState: any) {
     this.updateRect();
     // console.log("Layout time: " + this.layoutTime + "ms Render time: " + (Date.now() - this.start) + "ms");
   }
