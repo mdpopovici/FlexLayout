@@ -29,13 +29,22 @@ export class Tab extends React.Component<ITabProps, any> {
         // console.log("unmount " + this.props.node.getName());
     }
 
-    componentWillReceiveProps(newProps: ITabProps) {
-        if (!this.state.renderComponent && newProps.selected) {
+    getDerivedStateFromProps(newProps: ITabProps, state: any) {
+        if (!state.renderComponent && newProps.selected) {
             // load on demand
             // console.log("load on demand: " + this.props.node.getName());
-            this.setState({ renderComponent: true });
+            return { renderComponent: true };
         }
+        return null;
     }
+
+    // componentWillReceiveProps(newProps: ITabProps) {
+    //     if (!this.state.renderComponent && newProps.selected) {
+    //         // load on demand
+    //         // console.log("load on demand: " + this.props.node.getName());
+    //         this.setState({ renderComponent: true });
+    //     }
+    // }
 
     onMouseDown = () => {
         const parent = this.props.node.getParent() as TabSetNode;

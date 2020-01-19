@@ -39,12 +39,19 @@ export class TabSet extends React.Component<ITabSetProps, any> {
         this.updateVisibleTabs();
     }
 
-    componentWillReceiveProps(nextProps: ITabSetProps) {
+    getDerivedStateFromProps(nextProps: ITabSetProps, state: any) {
         this.showToolbar = true;
         this.showOverflow = false;
         this.recalcVisibleTabs = true;
-        this.setState({ hideTabsAfter: 999 });
+        return { hideTabsAfter: 999 };
     }
+
+    // componentWillReceiveProps(nextProps: ITabSetProps) {
+    //     this.showToolbar = true;
+    //     this.showOverflow = false;
+    //     this.recalcVisibleTabs = true;
+    //     this.setState({ hideTabsAfter: 999 });
+    // }
 
     updateVisibleTabs() {
         const node = this.props.node;
